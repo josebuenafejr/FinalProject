@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+    body{
+        background-image: url('https://cdn.dribbble.com/users/720472/screenshots/2177275/gif.gif');
+        background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size:100% 100%;
+    }
+</style>
+<body>
+    <br><br>
+    <div class="container">
+        Method
+        <div class="btn-group1" role="group1" aria-label="Basic radio toggle button group">
+            <input type="radio" class="" name="btnradio1" id="btnradio1" autocomplete="off">
+            <label class="" id="br1" for="btnradio1">Get</label>
+          
+            <input type="radio" class="" name="btnradio1" id="btnradio2" autocomplete="off">
+            <label class="" id="br2" for="btnradio2">Post</label>
+        </div>
+        <hr>
+        Description
+        <div class="btn-group2" role="group2" aria-label="Basic radio toggle button group">
+            <input type="radio" class="" name="btnradio2" id="btnradio3" autocomplete="off">
+            <label class="" id="br3" for="btnradio3">The</label>
+          
+            <input type="radio" class="" name="btnradio2" id="btnradio4" autocomplete="off">
+            <label class="" id="br4" for="btnradio4">Happy</label>
+    
+            <input type="radio" class="" name="btnradio2" id="btnradio5" autocomplete="off">
+            <label class="" id="br5" for="btnradio5">Sad</label>
+    
+            <input type="radio" class="" name="btnradio2" id="btnradio6" autocomplete="off">
+            <label class="" id="br6" for="btnradio6">Lazy</label>
+        </div>
+        <hr>
+        Subject
+        <div class="btn-group3" role="group3" aria-label="Basic radio toggle button group">
+            <input type="radio" class="" name="btnradio3" id="btnradio7" autocomplete="off">
+            <label class="" id="br7" for="btnradio7">Cat</label>
+          
+            <input type="radio" class="" name="btnradio3" id="btnradio8" autocomplete="off">
+            <label class="" id="br8" for="btnradio8">Dog</label>
+    
+            <input type="radio" class="" name="btnradio3" id="btnradio9" autocomplete="off">
+            <label class="" id="br9" for="btnradio9">Fox</label>
+    
+            <input type="radio" class="" name="btnradio3" id="btnradio10" autocomplete="off">
+            <label class="" id="br10" for="btnradio10">Bear</label>
+        </div>
+        <br>
+        <button class="btn btn-primary" id="btn_submit" type="button">Perform Operation</button>
+        <br><br>
+        <div id="result">
+            
+        </div>
+    </div>
+   
+<p id="result"></p>
+    <script>
+        $(document).ready(function(){
+            $('#btn_submit').click(function(){
+                var method,subject,desc;
+
+                //check the method
+                if($('#btnradio1').prop('checked')){
+                    method = $('#br1').html();
+    
+                }
+                
+                if($('#btnradio2').prop('checked')){
+                    method = $('#br2').html();
+
+                }
+
+                //check the description
+                if($('#btnradio3').prop('checked')){
+                    desc = $('#br3').html();
+                }
+                
+                if($('#btnradio4').prop('checked')){
+                    desc = $('#br4').html();
+                }
+                if($('#btnradio5').prop('checked')){
+                    desc = $('#br5').html();
+                }
+                
+                if($('#btnradio6').prop('checked')){
+                    desc = $('#br6').html();
+                }
+
+                //check the subject
+                if($('#btnradio7').prop('checked')){
+                    subject = $('#br3').html();
+                }
+                
+                if($('#btnradio8').prop('checked')){
+                    subject = $('#br8').html();
+                }
+                if($('#btnradio9').prop('checked')){
+                    subject = $('#br9').html();
+                }
+                
+                if($('#btnradio10').prop('checked')){
+                    subject = $('#br10').html();
+                }
+
+
+                //api fetching
+                if(method == 'Post'){
+                    fetch('https://jsonplaceholder.typicode.com/posts', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            animal:subject,
+                            description:desc
+                        }),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                        })
+                        .then((response) => response.json())
+                        .then((json) => console.log(json))
+                        
+                        .then( 
+                            $('#result').html('<div class="alert alert-success" >Recorded</div>')
+                            
+                            
+                            
+                        );
+                }
+                if(method == 'Get'){
+                    fetch('https://jsonplaceholder.typicode.com/posts')
+                        .then((response) => response.json())
+                        .then((post) =>{
+                            //view the 10 post from the api
+                                $('#result').html('<div class="alert alert-success">'+post[1].userId+'<br>'+post[1].title+'<br>'+post[1].body +'</div>'
+                                                 +'<div class="alert alert-success">'+post[2].userId+'<br>'+post[2].title+'<br>'+post[2].body +'</div>'
+                                                 +'<div class="alert alert-success">'+post[3].userId+'<br>'+post[3].title+'<br>'+post[3].body +'</div>'
+                                                 +'<div class="alert alert-success">'+post[4].userId+'<br>'+post[4].title+'<br>'+post[4].body +'</div>'
+                                                 +'<div class="alert alert-success">'+post[5].userId+'<br>'+post[5].title+'<br>'+post[5].body +'</div>')   
+                    });
+     
+                }
+                
+
+            });
+        });
+    </script>
+</body>
+</html>
